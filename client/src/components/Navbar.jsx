@@ -79,11 +79,11 @@ const Navbar = () => {
 
         {dropdownMenu && user && (
           <div className="navbar_right_accountmenu">
-            <Link>Trip List</Link>
-            <Link>Wish List</Link>
-            <Link>Property List</Link>
-            <Link>Reservation List</Link>
-            <Link>Become A Host</Link>
+            <Link to={`/${user._id}/trips`}>Trip List</Link>
+            <Link to={`/${user._id}/wishList`}>Wish List</Link>
+            <Link to={`/${user._id}/properties`}>Property List</Link>
+            <Link to={`/${user._id}/reservations`}>Reservation List</Link>
+            <Link to="/create-listing">Become A Host</Link>
 
             <Link
               to="/login"

@@ -1,25 +1,16 @@
 .slide {
-  width: 100%;
+  width: 100vw;
   height: 80vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../../public/assets/slide.jpg") no-repeat center top;
+    url("../../public/assets/slide.jpg");
+  background-position: center top;
   background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
 
   h1 {
-    padding: 20px;
+    padding: 40px 20px;
     font-size: 40px;
+    text-align: center;
     color: white;
-
-    @media (max-width: 768px) {
-      font-size: 28px; // Adjust for tablets
-    }
-
-    @media (max-width: 480px) {
-      font-size: 20px; // Adjust for mobile devices
-    }
   }
 }
+
