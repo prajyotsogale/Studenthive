@@ -1,0 +1,25 @@
+.slide {
+  width: 100%;
+  height: 80vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../public/assets/slide.jpg") no-repeat center top;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  h1 {
+    padding: 20px;
+    font-size: 40px;
+    color: white;
+
+    @media (max-width: 768px) {
+      font-size: 28px; // Adjust for tablets
+    }
+
+    @media (max-width: 480px) {
+      font-size: 20px; // Adjust for mobile devices
+    }
+  }
+}
