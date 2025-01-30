@@ -162,24 +162,24 @@ export const types = [
 ];
 
 export const facilities = [
+  // {
+  //   name: "Bath tub",
+  //   icon: <PiBathtubFill />,
+  // },
+  // {
+  //   name: "Personal care products",
+  //   icon: <FaPumpSoap />,
+  // },
+  // {
+  //   name: "Outdoor shower",
+  //   icon: <FaShower />,
+  // },
+  // {
+  //   name: "Washer",
+  //   icon: <BiSolidWasher />,
+  // },
   {
-    name: "Bath tub",
-    icon: <PiBathtubFill />,
-  },
-  {
-    name: "Personal care products",
-    icon: <FaPumpSoap />,
-  },
-  {
-    name: "Outdoor shower",
-    icon: <FaShower />,
-  },
-  {
-    name: "Washer",
-    icon: <BiSolidWasher />,
-  },
-  {
-    name: "Dryer",
+    name: "Laundry Facilities",
     icon: <BiSolidDryer />,
   },
   {
@@ -195,17 +195,17 @@ export const facilities = [
     icon: <PiTelevisionFill />,
   },
   {
-    name: "Dedicated workspace",
+    name: "Study Desk/Workspace",
     icon: <BsPersonWorkspace />
   },
   {
     name: "Air Conditioning",
     icon: <BsSnow />,
   },
-  {
-    name: "Heating",
-    icon: <GiHeatHaze />,
-  },
+  // {
+  //   name: "Heating",
+  //   icon: <GiHeatHaze />,
+  // },
   {
     name: "Security cameras",
     icon: <GiCctvCamera />,
@@ -214,16 +214,16 @@ export const facilities = [
     name: "Fire extinguisher",
     icon: <FaFireExtinguisher />,
   },
-  {
-    name: "First Aid",
-    icon: <BiSolidFirstAid />,
-  },
+  // {
+  //   name: "First Aid",
+  //   icon: <BiSolidFirstAid />,
+  // },
   {
     name: "Wifi",
     icon: <BiWifi />,
   },
   {
-    name: "Cooking set",
+    name: "Shared Kitchen",
     icon: <FaKitchenSet />,
   },
   {
@@ -234,26 +234,26 @@ export const facilities = [
     name: "Microwave",
     icon: <MdMicrowave />,
   },
+  // {
+  //   name: "Stove",
+  //   icon: <GiToaster />,
+  // },
   {
-    name: "Stove",
-    icon: <GiToaster />,
-  },
-  {
-    name: "Barbecue grill",
+    name: "Shared Kitchen",
     icon: <GiBarbecue />,
   },
+  // {
+  //   name: "Outdoor dining area",
+  //   icon: <FaUmbrellaBeach />,
+  // },
   {
-    name: "Outdoor dining area",
-    icon: <FaUmbrellaBeach />,
-  },
-  {
-    name: "Private patio or Balcony",
+    name: "Balcony",
     icon: <MdBalcony />,
   },
-  {
-    name: "Camp fire",
-    icon: <GiCampfire />,
-  },
+  // {
+  //   name: "Camp fire",
+  //   icon: <GiCampfire />,
+  // },
   {
     name: "Garden",
     icon: <MdYard />,
@@ -262,10 +262,10 @@ export const facilities = [
     name: "Free parking",
     icon: <AiFillCar />,
   },
-  {
-    name: "Self check-in",
-    icon: <FaKey />
-  },
+  // {
+  //   name: "Self check-in",
+  //   icon: <FaKey />
+  // },
   {
     name: " Pet allowed",
     icon: <MdPets />
