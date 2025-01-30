@@ -38,7 +38,13 @@ const UserSchema = new mongoose.Schema(
     reservationList: {
       type: Array,
       default: [],
-    }
+    },
+   
+  role: {
+    type: String,
+    enum: ["admin", "customer"],
+    default: "customer",
+  }
   },
   { timestamps: true }
 )

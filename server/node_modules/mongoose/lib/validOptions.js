@@ -11,10 +11,13 @@ const VALID_OPTIONS = Object.freeze([
   'applyPluginsToDiscriminators',
   'autoCreate',
   'autoIndex',
+  'autoSearchIndex',
   'bufferCommands',
   'bufferTimeoutMS',
   'cloneSchemas',
+  'createInitialConnection',
   'debug',
+  'forceRepopulate',
   'id',
   'timestamps.createdAt.immutable',
   'maxTimeMS',
@@ -31,6 +34,7 @@ const VALID_OPTIONS = Object.freeze([
   'strictQuery',
   'toJSON',
   'toObject',
+  'transactionAsyncLocalStorage',
   'translateAliases'
 ]);
 

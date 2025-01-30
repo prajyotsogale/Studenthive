@@ -2,7 +2,8 @@ const router = require("express").Router();
 const multer = require("multer");
 
 const Listing = require("../models/Listing");
-const User = require("../models/User")
+const User = require("../models/User");
+const { verifyAdmin } = require("../middlewares/verify");
 
 /* Configuration Multer for File Upload */
 const storage = multer.diskStorage({
@@ -17,7 +18,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 /* CREATE LISTING */
-router.post("/create", upload.array("listingPhotos"), async (req, res) => {
+router.post("/create", upload.array("listingPhotos"),verifyAdmin ,  async (req, res) => {
   try {
     /* Take the information from the form */
     const {
@@ -130,6 +131,16 @@ router.get("/:listingId", async (req, res) => {
     const { listingId } = req.params
     const listing = await Listing.findById(listingId).populate("creator")
     res.status(202).json(listing)
+  } catch (err) {
+    res.status(404).json({ message: "Listing can not found!", error: err.message })
+  }
+})
+
+router.get("/findProperties/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params
+    const listings = await Listing.find({ creator: userId }).populate("creator")
+    res.status(202).json(listings)
   } catch (err) {
     res.status(404).json({ message: "Listing can not found!", error: err.message })
   }

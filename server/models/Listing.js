@@ -8,47 +8,47 @@ const ListingSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      required: true,
+//required: true,
     },
     type: {
       type: String,
-      required: true,
+//required: true,
     },
     streetAddress: {
       type: String,
-      required: true,
+//required: true,
     },
     aptSuite: {
       type: String,
-      required: true,
+//required: true,
     },
     city: {
       type: String,
-      required: true,
+//required: true,
     },
     province: {
       type: String,
-      required: true,
+//required: true,
     },
     country: {
       type: String,
-      required: true,
+//required: true,
     },
     guestCount: {
       type: Number,
-      required: true,
+//required: true,
     },
     bedroomCount: {
       type: Number,
-      required: true,
+//required: true,
     },
     bedCount: {
       type: Number,
-      required: true,
+//required: true,
     },
     bathroomCount: {
       type: Number,
-      required: true,
+//required: true,
     },
     amenities: {
       type: Array,
@@ -73,7 +73,7 @@ const ListingSchema = new mongoose.Schema(
     },
     price: {
       type: Number,
-      required: true,
+//required: true,
     }
   },
   { timestamps: true}
