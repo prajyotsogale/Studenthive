@@ -51,19 +51,19 @@ export const categories = [
   },
   {
     img: "assets/beach_cat.jpg",
-    label: "Beachfront",
+    label: "vasai east",
     icon: <TbBeach />,
     description: "This property is close to the beach!",
   },
   {
     img: "assets/windmill_cat.webp",
-    label: "Windmills",
+    label: "vasai east",
     icon: <GiWindmill />,
     description: "This property is has windmills!",
   },
   {
     img: "assets/modern_cat.webp",
-    label: "Iconic cities",
+    label: "Iconic places",
     icon: <MdOutlineVilla />,
     description: "This property is modern!",
   },
@@ -81,7 +81,7 @@ export const categories = [
   },
   {
     img: "assets/island_cat.webp",
-    label: "Islands",
+    label: "vasai east",
     icon: <GiIsland />,
     description: "This property is on an island!",
   },
