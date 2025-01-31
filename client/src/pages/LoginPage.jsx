@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom"
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch()
-
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -24,6 +24,10 @@ const LoginPage = () => {
         body: JSON.stringify({ email, password })
       })
 
+      if (!response.ok) {
+        throw new Error("Invalid credentials or user not registered");
+      }
+
       /* Get data after fetching */
       const loggedIn = await response.json()
 
@@ -34,11 +38,15 @@ const LoginPage = () => {
             token: loggedIn.token
           })
         )
-        navigate("/")
+        
+        if (loggedIn.user.isHost) {
+          navigate("/create-listing")
+        } else {
+          navigate("/")
+        }
       }
-
     } catch (err) {
-      console.log("Login failed", err.message)
+      setErrorMessage(err.message);
     }
   }
 
@@ -60,9 +68,10 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           <button type="submit">LOG IN</button>
         </form>
-        <a href="/register">Don't have an account? Sign In Here</a>
+        <a href="/register">Don't have an account? Sign Up Here</a>
       </div>
     </div>
   );
