@@ -4,8 +4,8 @@ const Slide = () => {
   return (
     <div className="slide">
       <h1>
-        Welcome Home! Anywhere you roam <br /> Stay in the moment. Make your
-        memories
+      Student Living Made Simple <br /> Your Home Away from Home!
+      
       </h1>
     </div>
   );

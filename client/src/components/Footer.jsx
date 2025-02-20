@@ -9,10 +9,12 @@ const Footer = () => {
 
       <div className="footer_center">
         <h3>Useful Links</h3>
+        <li><a href="https://mumbaipolice.gov.in/TenantForm?ps_id=0" target="_blank" rel="noopener noreferrer">Mumbai Police Tenant Form</a></li>
+        <li><a href="https://vcet.edu.in/" target="_blank" rel="noopener noreferrer">VCET ERP</a></li>
         <ul>
           <li>About Us</li>
           <li>Terms and Conditions</li>
-          <li>Return and Refund Policy</li>
+          <li>Agreement Policy</li>
         </ul>
       </div>
 
@@ -20,11 +22,11 @@ const Footer = () => {
         <h3>Contact</h3>
         <div className="footer_right_info">
           <LocalPhone />
-          <p>+1 234 567 890</p>
+          <p>+91 9987608710</p>
         </div>
         <div className="footer_right_info">
           <Email />
-          <p>dreamnest@support.com</p>
+          <p>Studenthive@gmail.com</p>
         </div>
         <img src="/assets/payment.png" alt="payment" />
       </div>
