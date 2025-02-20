@@ -16,10 +16,11 @@ const Listings = () => {
 
   const getFeedListings = async () => {
     try {
+      console.log(process.env.REACT_APP_URL);
       const response = await fetch(
         selectedCategory !== "All"
           ? `https://studenthive.onrender.com/properties?category=${selectedCategory}`
-          : "https://studenthive.onrender.com/properties",
+          : `https://studenthive.onrender.com/properties`,
         {
           method: "GET",
         }

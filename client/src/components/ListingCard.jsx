@@ -8,6 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setWishList } from "../redux/state";
+import { useSupplier } from "../context/Refresh";
 
 const ListingCard = ({
   listingId,
@@ -26,7 +27,7 @@ const ListingCard = ({
 }) => {
   /* SLIDER FOR IMAGES */
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const {setPrice}=useSupplier();
   const goToPrevSlide = () => {
     setCurrentIndex(
       (prevIndex) =>
@@ -62,6 +63,7 @@ const ListingCard = ({
     dispatch(setWishList(data.wishList));
   } else { return }
   };
+
 
   return (
     <div
@@ -122,7 +124,7 @@ const ListingCard = ({
             {startDate} - {endDate}
           </p>
           <p>
-            <span>${totalPrice}</span> total
+            <span >${totalPrice}</span> total
           </p>
         </>
       )}

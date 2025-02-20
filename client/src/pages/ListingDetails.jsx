@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/ListingDetails.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { facilities } from "../data";
 
 import "react-date-range/dist/styles.css";
@@ -10,6 +10,7 @@ import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 import Footer from "../components/Footer"
+import { useSupplier } from "../context/Refresh";
 
 const ListingDetails = () => {
   const [loading, setLoading] = useState(true);
@@ -63,10 +64,13 @@ const ListingDetails = () => {
   const customerId = useSelector((state) => state?.user?._id)
 
   const navigate = useNavigate()
-
+     const {setPrice} = useSupplier();
+    
   const handleSubmit = async () => {
+    setPrice(listing.price * dayCount);
     try {
       const bookingForm = {
+    
         customerId,
         listingId,
         hostId: listing.creator._id,
@@ -75,7 +79,7 @@ const ListingDetails = () => {
         totalPrice: listing.price * dayCount,
       }
 
-      const response = await fetch("https://studenthive.onrender.com/bookings/create", {
+      const response = await fetch(`https://studenthive.onrender.com/bookings/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +88,7 @@ const ListingDetails = () => {
       })
 
       if (response.ok) {
-        navigate(`/${customerId}/trips`)
+        // navigate(`/${customerId}/trips`)
       }
     } catch (err) {
       console.log("Submit Booking Failed.", err.message)
@@ -178,10 +182,10 @@ const ListingDetails = () => {
               <h2>Total price: ${listing.price * dayCount}</h2>
               <p>Start Date: {dateRange[0].startDate.toDateString()}</p>
               <p>End Date: {dateRange[0].endDate.toDateString()}</p>
-
-              <button className="button" type="submit" onClick={handleSubmit}>
+              <Link to={`/raz`}><button className="button" type="submit" onClick={handleSubmit}>
                 BOOKING
-              </button>
+              </button></Link>
+              
             </div>
           </div>
         </div>
