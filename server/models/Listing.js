@@ -55,6 +55,9 @@ const ListingSchema = new mongoose.Schema(
       default:[]
     },
     listingPhotoPaths: [{ type: String }], // Store photo URLs
+    listingPhoto: [{
+      type: String,
+    }],
     title: {
       type: String,
       required: true

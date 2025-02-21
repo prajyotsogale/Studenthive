@@ -1,7 +1,11 @@
+
+
+const cloudinary = require('../utils/cloudinary');
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
+
 
 const User = require("../models/User");
 
@@ -25,7 +29,9 @@ router.post("/register", upload.single("profileImage"), async (req, res) => {
 
     /* The uploaded file is available as req.file */
     const profileImage = req.file;
-
+    const result = await cloudinary.uploader.upload(profileImage.path);
+    
+    
     if (!profileImage) {
       return res.status(400).send("No file uploaded");
     }
@@ -50,7 +56,9 @@ router.post("/register", upload.single("profileImage"), async (req, res) => {
       email,
       password: hashedPassword,
       profileImagePath,
+      userImage: result.secure_url,
     });
+
 
     /* Save the new User */
     await newUser.save();

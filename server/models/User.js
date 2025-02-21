@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema(
     profileImagePath: {
       type: String,
       default: "",
+
+    },
+    userImage: {
+      type: String,
     },
     tripList: {
       type: Array,

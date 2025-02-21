@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const multer = require("multer");
+const cloudinary = require("../utils/cloudinary");
 
 const Listing = require("../models/Listing");
 const User = require("../models/User")
@@ -48,8 +49,18 @@ router.post("/create", upload.array("listingPhotos"), async (req, res) => {
     }
 
     const listingPhotoPaths = listingPhotos.map((file) => file.path)
+    const result = await Promise.all(
+      listingPhotos.map(async (file) => {
+        return await cloudinary.uploader.upload(file.path);
+      })
+    );
+
+    const singlePhoto = result.map((item) => item.secure_url)
+
+
 
     const newListing = new Listing({
+      listingPhoto: singlePhoto,
       creator,
       category,
       type,
