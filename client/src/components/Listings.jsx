@@ -19,8 +19,8 @@ const Listings = () => {
       console.log(process.env.REACT_APP_URL);
       const response = await fetch(
         selectedCategory !== "All"
-          ? `http://localhost:3001/properties?category=${selectedCategory}`
-          : `http://localhost:3001/properties`,
+          ? `https://studenthive.onrender.com/properties?category=${selectedCategory}`
+          : `https://studenthive.onrender.com/properties`,
         {
           method: "GET",
         }
