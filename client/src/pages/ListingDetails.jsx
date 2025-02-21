@@ -21,7 +21,7 @@ const ListingDetails = () => {
   const getListingDetails = async () => {
     try {
       const response = await fetch(
-        `https://studenthive.onrender.com/properties/${listingId}`,
+        `http://localhost:3001/properties/${listingId}`,
         {
           method: "GET",
         }
@@ -61,10 +61,10 @@ const ListingDetails = () => {
   const dayCount = Math.round(end - start) / (1000 * 60 * 60 * 24); // Calculate the difference in day unit
 
   /* SUBMIT BOOKING */
-  const customerId = useSelector((state) => state?.user?._id)
+  const customerId = useSelector((state) => state?.user?._id);
 
   const navigate = useNavigate()
-     const {setPrice} = useSupplier();
+  const {setPrice} = useSupplier();
     
   const handleSubmit = async () => {
     setPrice(listing.price * dayCount);
@@ -79,13 +79,15 @@ const ListingDetails = () => {
         totalPrice: listing.price * dayCount,
       }
 
-      const response = await fetch(`https://studenthive.onrender.com/bookings/create`, {
+      const response = await fetch(`http://localhost:3001/bookings/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(bookingForm)
       })
+
+      navigate("/raz", { state: { price: listing.price / dayCount } });
 
       if (response.ok) {
         // navigate(`/${customerId}/trips`)
@@ -110,7 +112,7 @@ const ListingDetails = () => {
         <div className="photos">
           {listing.listingPhotoPaths?.map((item) => (
             <img
-              src={`https://studenthive.onrender.com/${item.replace("public", "")}`}
+              src={`http://localhost:3001/${item.replace("public", "")}`}
               alt="listing photo"
             />
           ))}
@@ -128,7 +130,7 @@ const ListingDetails = () => {
 
         <div className="profile">
           <img
-            src={`https://studenthive.onrender.com/${listing.creator.profileImagePath.replace(
+            src={`http://localhost:3001/${listing.creator.profileImagePath.replace(
               "public",
               ""
             )}`}
@@ -171,15 +173,15 @@ const ListingDetails = () => {
               <DateRange ranges={dateRange} onChange={handleSelect} />
               {dayCount > 1 ? (
                 <h2>
-                  ₹{listing.price} x {dayCount} nights
+                  ₹{listing.price} / {dayCount} nights
                 </h2>
               ) : (
                 <h2>
-                  ₹{listing.price} x {dayCount} night
+                  ₹{listing.price} / {dayCount} night
                 </h2>
               )}
 
-              <h2>Total price: ₹{listing.price * dayCount}</h2>
+              <h2>Total price: ₹{(listing.price / dayCount)}</h2>
               <p>Start Date: {dateRange[0].startDate.toDateString()}</p>
               <p>End Date: {dateRange[0].endDate.toDateString()}</p>
               <Link to={`/raz`}><button className="button" type="submit" onClick={handleSubmit}>

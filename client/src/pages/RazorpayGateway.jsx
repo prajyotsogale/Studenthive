@@ -1,9 +1,14 @@
 import React, { useEffect } from "react";
 import { useSupplier } from "../context/Refresh";
+import { useLocation } from "react-router-dom";
 
 
 const RazorpayGateway = () => {
-    const {price} = useSupplier();
+    const location = useLocation();
+
+
+    const price = location.state?.price || 0;
+
     console.log(price)
   useEffect(() => {
     const script = document.createElement("script");
