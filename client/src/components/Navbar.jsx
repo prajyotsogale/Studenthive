@@ -60,10 +60,8 @@ const Navbar = () => {
             <Person sx={{ color: variables.darkgrey }} />
           ) : (
             <img
-              src={`https://studenthive.onrender.com/${user.profileImagePath.replace(
-                "public",
-                ""
-              )}`}
+              src = {user.userImage}
+              
               alt="profile photo"
               style={{ objectFit: "cover", borderRadius: "50%" }}
             />

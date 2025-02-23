@@ -19,11 +19,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    profileImagePath: {
-      type: String,
-      default: "",
-
-    },
+    
     userImage: {
       type: String,
     },

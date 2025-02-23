@@ -11,9 +11,7 @@ const User = require("../models/User");
 
 /* Configuration Multer for File Upload */
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/uploads/"); // Store uploaded files in the 'uploads' folder
-  },
+  
   filename: function (req, file, cb) {
     cb(null, file.originalname); // Use the original file name
   },
@@ -36,9 +34,6 @@ router.post("/register", upload.single("profileImage"), async (req, res) => {
       return res.status(400).send("No file uploaded");
     }
 
-    /* path to the uploaded profile photo */
-    const profileImagePath = profileImage.path;
-
     /* Check if user exists */
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -55,7 +50,6 @@ router.post("/register", upload.single("profileImage"), async (req, res) => {
       lastName,
       email,
       password: hashedPassword,
-      profileImagePath,
       userImage: result.secure_url,
     });
 

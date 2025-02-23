@@ -13,7 +13,7 @@ import { useSupplier } from "../context/Refresh";
 const ListingCard = ({
   listingId,
   creator,
-  listingPhotoPaths,
+  listingPhoto,
   city,
   province,
   country,
@@ -31,12 +31,12 @@ const ListingCard = ({
   const goToPrevSlide = () => {
     setCurrentIndex(
       (prevIndex) =>
-        (prevIndex - 1 + listingPhotoPaths.length) % listingPhotoPaths.length
+        (prevIndex - 1 + listingPhoto.length) % listingPhoto.length
     );
   };
 
   const goToNextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % listingPhotoPaths.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % listingPhoto.length);
   };
 
   const navigate = useNavigate();
@@ -77,10 +77,10 @@ const ListingCard = ({
           className="slider"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          {listingPhotoPaths?.map((photo, index) => (
+          {listingPhoto?.map((photo, index) => (
             <div key={index} className="slide">
               <img
-                src={`https://studenthive.onrender.com/${photo?.replace("public", "")}`}
+                src={photo}
                 alt={`photo ${index + 1}`}
               />
               <div
