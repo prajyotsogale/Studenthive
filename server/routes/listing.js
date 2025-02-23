@@ -3,7 +3,8 @@ const multer = require("multer");
 const cloudinary = require("../utils/cloudinary");
 
 const Listing = require("../models/Listing");
-const User = require("../models/User")
+const User = require("../models/User");
+const { verifyJWT } = require("../middlewares/verify");
 
 /* Configuration Multer for File Upload */
 const storage = multer.diskStorage({
@@ -45,7 +46,6 @@ router.post("/create", upload.array("listingPhotos"), async (req, res) => {
       return res.status(400).send("No file uploaded.")
     }
 
-    const listingPhotoPaths = listingPhotos.map((file) => file.path)
     const result = await Promise.all(
       listingPhotos.map(async (file) => {
         return await cloudinary.uploader.upload(file.path);

@@ -16,7 +16,7 @@ const PropertyList = () => {
   const dispatch = useDispatch()
   const getPropertyList = async () => {
     try {
-      const response = await fetch(`https://studenthive.onrender.com/users/${user._id}/properties`, {
+      const response = await fetch(`http://localhost:3001/users/${user._id}/properties`, {
         method: "GET"
       })
       const data = await response.json()
