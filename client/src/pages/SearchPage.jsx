@@ -17,7 +17,7 @@ const SearchPage = () => {
 
   const getSearchListings = async () => {
     try {
-      const response = await fetch(`https://studenthive.onrender.com/properties/search/${search}`, {
+      const response = await fetch(`http://localhost:3001/properties/search/${search}`, {
         method: "GET"
       })
 

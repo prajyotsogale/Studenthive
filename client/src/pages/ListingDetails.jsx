@@ -11,35 +11,20 @@ import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 import Footer from "../components/Footer"
 import { useSupplier } from "../context/Refresh";
+import { useGetListingDetails } from "../hooks/listing";
+import { useCreateBooking } from "../hooks/booking";
 
 const ListingDetails = () => {
-  const [loading, setLoading] = useState(true);
+  const {getListingDetails , listing, loading} = useGetListingDetails();
+  const {createBooking} = useCreateBooking();
 
   const { listingId } = useParams();
-  const [listing, setListing] = useState(null);
 
-  const getListingDetails = async () => {
-    try {
-      const response = await fetch(
-        `https://studenthive.onrender.com/properties/${listingId}`,
-        {
-          method: "GET",
-        }
-      );
-
-      const data = await response.json();
-      setListing(data);
-      setLoading(false);
-    } catch (err) {
-      console.log("Fetch Listing Details Failed", err.message);
-    }
-  };
+  
 
   useEffect(() => {
-    getListingDetails();
+    getListingDetails(listingId);
   }, []);
-
-  console.log(listing)
 
 
   /* BOOKING CALENDAR */
@@ -67,10 +52,7 @@ const ListingDetails = () => {
   const {setPrice} = useSupplier();
     
   const handleSubmit = async () => {
-    setPrice(listing.price * dayCount);
-    try {
       const bookingForm = {
-    
         customerId,
         listingId,
         hostId: listing.creator._id,
@@ -79,22 +61,11 @@ const ListingDetails = () => {
         totalPrice: listing.price * dayCount,
       }
 
-      const response = await fetch(`https://studenthive.onrender.com/bookings/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bookingForm)
-      })
-
-      navigate("/raz", { state: { price: listing.price / dayCount } });
-
-      if (response.ok) {
-        // navigate(`/${customerId}/trips`)
+      const result = await createBooking(bookingForm);
+      if(result.status) {
+        navigate("/raz")
       }
-    } catch (err) {
-      console.log("Submit Booking Failed.", err.message)
-    }
+
   }
 
   return loading ? (
@@ -105,59 +76,59 @@ const ListingDetails = () => {
       
       <div className="listing-details">
         <div className="title">
-          <h1>{listing.title}</h1>
+          <h1>{listing?.title}</h1>
           <div></div>
         </div>
 
         <div className="photos">
-          {listing.listingPhotoPaths?.map((item) => (
+          {listing?.listingPhoto?.map((item) => (
             <img
-              src={`https://studenthive.onrender.com/${item.replace("public", "")}`}
+              src={item}
               alt="listing photo"
             />
           ))}
         </div>
 
         <h2>
-          {listing.type} in {listing.city}, {listing.province},{" "}
-          {listing.country}
+          {listing?.type} in {listing?.city}, {listing?.province},{" "}
+          {listing?.country}
         </h2>
         <p>
-          {listing.guestCount} guests - {listing.bedroomCount} bedroom(s) -{" "}
-          {listing.bedCount} bed(s) - {listing.bathroomCount} bathroom(s)
+          {listing?.guestCount} guests - {listing?.bedroomCount} bedroom(s) -{" "}
+          {listing?.bedCount} bed(s) - {listing?.bathroomCount} bathroom(s)
         </p>
         <hr />
 
         <div className="profile">
-          <img
-            src={`https://studenthive.onrender.com/${listing.creator.profileImagePath.replace(
+          {/* <img
+            src={`http://localhost:3001/${listing.creator.profileImagePath.replace(
               "public",
               ""
             )}`}
-          />
+          /> */}
           <h3>
-            Hosted by {listing.creator.firstName} {listing.creator.lastName}
+            Hosted by {listing?.creator?.firstName} {listing?.creator?.lastName}
           </h3>
         </div>
         <hr />
 
         <h3>Description</h3>
-        <p>{listing.description}</p>
+        <p>{listing?.description}</p>
         <hr />
 
-        <h3>{listing.highlight}</h3>
-        <p>{listing.highlightDesc}</p>
+        <h3>{listing?.highlight}</h3>
+        <p>{listing?.highlightDesc}</p>
         <hr />
 
         <div className="booking">
           <div>
             <h2>What this place offers?</h2>
             <div className="amenities">
-              {listing.amenities[0].split(",").map((item, index) => (
+              {listing?.amenities[0].split(",").map((item, index) => (
                 <div className="facility" key={index}>
                   <div className="facility_icon">
                     {
-                      facilities.find((facility) => facility.name === item)
+                      facilities?.find((facility) => facility.name === item)
                         ?.icon
                     }
                   </div>
@@ -173,15 +144,15 @@ const ListingDetails = () => {
               <DateRange ranges={dateRange} onChange={handleSelect} />
               {dayCount > 1 ? (
                 <h2>
-                  ₹{listing.price} / {dayCount} nights
+                  ₹{listing?.price} / {dayCount} nights
                 </h2>
               ) : (
                 <h2>
-                  ₹{listing.price} / {dayCount} night
+                  ₹{listing?.price} / {dayCount} night
                 </h2>
               )}
 
-              <h2>Total price: ₹{Math.round(listing.price / dayCount)}</h2>
+              <h2>Total price: ₹{Math.round(listing?.price / dayCount)}</h2>
               <p>Start Date: {dateRange[0].startDate.toDateString()}</p>
               <p>End Date: {dateRange[0].endDate.toDateString()}</p>
               <Link to={`/raz`}><button className="button" type="submit" onClick={handleSubmit}>
