@@ -1,10 +1,12 @@
 export function useCreateBooking() {
     const createBooking = async (bookingForm) => {
         try {
+          const authToken = localStorage.getItem("token");
           const response = await fetch(`http://localhost:3001/bookings/create`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${authToken}`,
             },
             body: JSON.stringify(bookingForm)
           })

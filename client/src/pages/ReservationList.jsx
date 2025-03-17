@@ -16,10 +16,14 @@ const ReservationList = () => {
 
   const getReservationList = async () => {
     try {
+      const authToken = localStorage.getItem("token");
       const response = await fetch(
         `http://localhost:3001/users/${userId}/reservations`,
         {
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
         }
       );
 

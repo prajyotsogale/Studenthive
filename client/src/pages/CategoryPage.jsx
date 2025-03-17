@@ -17,10 +17,14 @@ const CategoryPage = () => {
 
   const getFeedListings = async () => {
     try {
+      const AuthToken = localStorage.getItem("token");
       const response = await fetch(
           `http://localhost:3001/properties?category=${category}`,
         {
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${AuthToken}`,
+          },
         }
       );
 

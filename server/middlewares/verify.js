@@ -31,8 +31,8 @@ module.exports.verifyAdmin = async (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        if (decoded.id.role !== "admin") {
-            return res.status(401).json({ msg: "your are not a admin" })
+        if (decoded.id.role !== "host") {
+            return res.status(401).json({ msg: "your are not a host" })
         }
 
         req.user = decoded;

@@ -17,8 +17,13 @@ const SearchPage = () => {
 
   const getSearchListings = async () => {
     try {
+      const authToken = localStorage.getItem("token")
       const response = await fetch(`http://localhost:3001/properties/search/${search}`, {
-        method: "GET"
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+
       })
 
       const data = await response.json()

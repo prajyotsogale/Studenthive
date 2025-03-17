@@ -102,9 +102,7 @@ const CreateListing = () => {
   const handlePost = async (e) => {
     e.preventDefault();
     const response = await createListing(creatorId , category, type, formLocation, guestCount, bedroomCount, bedCount, bathroomCount, amenities, formDescription , photos);
-    if(response.status){
-      navigate("/");
-    }
+  
     
   };
   return (
