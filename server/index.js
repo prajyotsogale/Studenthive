@@ -9,12 +9,11 @@ const listingRoutes = require("./routes/listing.js")
 const bookingRoutes = require("./routes/booking.js")
 const userRoutes = require("./routes/user.js")
 
-app.use(cors(
-  {
-    origin: "http://localhost:3000",
-    
-  }
-));
+app.use(cors({
+  origin: ["http://localhost:3000", "https://www.studenthive.college"], // Allow both local and deployed frontend
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.static("public"));
 

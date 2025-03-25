@@ -2,37 +2,53 @@
 @import "./breakpoints.scss";
 
 .navbar {
-  padding: 10px 60px;
+  padding: 15px 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  background: white;
+  color: #333;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 
   @include sm {
     padding: 10px 20px;
   }
 
   img {
-    width: 100px;
+    width: 120px;
     cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   &_search {
-    border: 1px solid $grey;
+    border: 1px solid #ccc;
     border-radius: 30px;
     height: 50px;
-    padding: 0px 20px;
+    padding: 0 20px;
     display: flex;
-    gap: 40px;
+    gap: 20px;
     align-items: center;
+    transition: box-shadow 0.3s ease;
 
     input {
       border: none;
       outline: none;
+      background: transparent;
+      color: #333;
+
+      &::placeholder {
+        color: #aaa;
+      }
     }
 
     &:hover {
-      @include shadow;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     }
 
     @include lg {
@@ -43,16 +59,16 @@
   &_right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
 
     .host {
       text-decoration: none;
-      color: $blue;
+      color: #6a11cb;
       font-weight: 700;
       cursor: pointer;
 
       &:hover {
-        color: $pinkred;
+        color: #ff477e;
       }
 
       @include sm {
@@ -61,24 +77,23 @@
     }
 
     &_account {
-      height: 50px;
       display: flex;
       align-items: center;
-      padding: 0 10px;
-      border: 1px solid $grey;
-      border-radius: 30px;
-      display: flex;
       gap: 10px;
-      background-color: white;
+      padding: 8px 20px;
+      border: 1px solid #ccc;
+      border-radius: 30px;
       cursor: pointer;
+      transition: box-shadow 0.3s ease;
 
       &:hover {
-        @include shadow;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       }
 
       img {
         width: 40px;
         height: 40px;
+        border-radius: 50%;
       }
     }
 
@@ -91,9 +106,9 @@
       flex-direction: column;
       width: 200px;
       padding: 10px 0;
-      border: 1px solid $lightgrey;
+      border: 1px solid #eaeaea;
       border-radius: 20px;
-      @include shadow;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       z-index: 9999;
 
       @include sm {
@@ -102,14 +117,58 @@
 
       a {
         width: 100%;
-        padding: 8px 15px;
+        padding: 10px 20px;
         text-decoration: none;
-        color: $blue;
+        color: #6a11cb;
         font-weight: 700;
 
         &:hover {
-          color: $pinkred;
+          color: #ff477e;
           background-color: rgba(217, 213, 213, 0.2);
+        }
+      }
+    }
+
+    .menu-toggle {
+      display: none;
+
+      @include lg {
+        display: block;
+      }
+
+      button {
+        background: none;
+        border: none;
+        color: #6a11cb;
+        font-size: 28px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  @include lg {
+    .navbar_right {
+      display: none;
+    }
+
+    .navbar_right.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      right: 20px;
+      top: 70px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      z-index: 9999;
+
+      a {
+        margin-bottom: 10px;
+        color: #6a11cb;
+
+        &:hover {
+          color: #ff477e;
         }
       }
     }

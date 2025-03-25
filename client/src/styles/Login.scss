@@ -1,66 +1,105 @@
 @import "./variables.scss";
 @import "./breakpoints.scss";
 
-.login {
+.register, .login {
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: url("../../public/assets/login.jpg") center;
-  background-size: cover;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  overflow: hidden;
 
   &_content {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     width: 40%;
-    padding: 40px;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 20px;
+    padding: 50px;
+    background: rgba(20, 20, 20, 0.9);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    transition: all 0.4s ease;
 
     @include lg {
-      width: 60%
+      width: 60%;
     }
 
     @include mm {
-      width: 80%
+      width: 80%;
+      padding: 40px;
+    }
+
+    @include sm {
+      width: 90%;
+      padding: 30px;
     }
 
     &_form {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
+      gap: 20px;
 
       input {
         width: 100%;
-        padding: 7px 15px;
-        background-color: transparent;
-        border: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 12px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
         outline: none;
         text-align: center;
         color: white;
+        transition: all 0.3s ease;
 
-        input:not(:placeholder-shown):focus {
-          background: transparent; /* or background: none; */
+        &:focus {
+          border-color: rgba(255, 255, 255, 0.7);
+          background: rgba(255, 255, 255, 0.2);
         }
 
         &::placeholder {
-          color: white;
+          color: rgba(255, 255, 255, 0.7);
+          font-size: 14px;
+        }
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        color: white;
+        font-size: 15px;
+        transition: transform 0.3s ease;
+
+        img {
+          width: 28px;
+        }
+
+        &:hover {
+          transform: scale(1.05);
         }
       }
 
       button {
-        margin-top: 15px;
-
-        @include buttonStyle;
-        width: 50%;
+        margin-top: 20px;
+        width: 60%;
+        padding: 12px 0;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #ff7eb3, #ff758c);
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
 
         &:hover {
-          box-shadow: 0 0 10px 3px rgba(255, 255, 255);
+          box-shadow: 0 0 20px rgba(255, 120, 180, 0.8);
+          transform: translateY(-3px);
         }
       }
     }
@@ -70,16 +109,35 @@
       display: flex;
       justify-content: center;
       margin-top: 20px;
+
+      button {
+        width: 50%;
+        padding: 12px 0;
+        border-radius: 16px;
+        background: white;
+        color: #333;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+        &:hover {
+          box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+          transform: translateY(-3px);
+        }
+      }
     }
 
     a {
       text-decoration: none;
-      color: white;
-      font-size: 17px;
-      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      margin-top: 12px;
       text-align: center;
+      transition: color 0.3s ease;
 
       &:hover {
+        color: white;
         text-decoration: underline;
       }
     }
@@ -91,3 +149,10 @@
     }
   }
 }
+
+// Adjusting the background for better aesthetics
+@media (max-width: 768px) {
+  .register, .login {
+    background: linear-gradient(135deg, #1b1b3a, #16213e);
+  }
+} 
