@@ -42,7 +42,7 @@ const ListingDetails = () => {
     const fetchBooking = async () => {
       try {
         const response = await fetch(
-          `https://studenthive.onrender.com/bookings/getbookings/${listingId}`,
+          `http://localhost:3001/bookings/getbookings/${listingId}`,
           {
             method: "GET",
             headers: {

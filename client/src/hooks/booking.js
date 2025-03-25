@@ -3,7 +3,7 @@ export function useCreateBooking() {
       console.log(bookingForm)
         try {
           const authToken = localStorage.getItem("token");
-          const response = await fetch(`https://studenthive.onrender.com/bookings/create`, {
+          const response = await fetch(`http://localhost:3001/bookings/create`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
