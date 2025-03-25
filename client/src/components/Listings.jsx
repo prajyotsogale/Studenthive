@@ -16,13 +16,16 @@ const Listings = () => {
 
   const getFeedListings = async () => {
     try {
-      console.log(process.env.REACT_APP_URL);
+      const authToken = localStorage.getItem("token");
       const response = await fetch(
         selectedCategory !== "All"
           ? `http://localhost:3001/properties?category=${selectedCategory}`
           : `http://localhost:3001/properties`,
         {
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
         }
       );
 
@@ -57,7 +60,7 @@ const Listings = () => {
         <Loader />
       ) : (
         <div className="listings">
-          {listings.map(
+          {listings?.map(
             ({
               _id,
               creator,

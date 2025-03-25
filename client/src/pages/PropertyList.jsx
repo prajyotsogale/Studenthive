@@ -11,16 +11,17 @@ const PropertyList = () => {
   const [loading, setLoading] = useState(true)
   const user = useSelector((state) => state.user)
   const propertyList = user?.propertyList;
-  console.log(user)
-
   const dispatch = useDispatch()
   const getPropertyList = async () => {
+    const authToken = localStorage.getItem("token")
     try {
-      const response = await fetch(`http://localhost:3001/users/${user._id}/properties`, {
-        method: "GET"
+      const response = await fetch(`http://localhost:3001/users/properties/${user._id}`, {
+        method: "GET" ,
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
       })
       const data = await response.json()
-      console.log(data)
       dispatch(setPropertyList(data))
       setLoading(false)
     } catch (err) {

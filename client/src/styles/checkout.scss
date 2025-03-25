@@ -1,0 +1,305 @@
+
+
+
+.container {
+    margin: 0 auto;
+    padding: 24px;
+    height : 100vh
+
+}
+
+.button-book {
+    width: full;
+    padding: 8px;
+    background-color: #d01950;
+
+}
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.back-link {
+    color: #222;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.icon-chevron-left {
+    width: 20px;
+    height: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+/* Content Layout */
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 32px;
+}
+
+@media (min-width: 768px) {
+    .content {
+        flex-direction: row;
+    }
+    
+    .main-content {
+        flex: 3;
+    }
+    
+    .sidebar {
+        flex: 2;
+    }
+}
+
+/* Trip Details */
+.trip-details {
+    margin-bottom: 32px;
+}
+
+.detail-row {
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.detail-label {
+    font-weight: 500;
+}
+
+.link-edit {
+    color: #222;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.link-edit:hover {
+    text-decoration: underline;
+}
+
+/* Login Section */
+.login-section {
+    margin-bottom: 32px;
+}
+
+.input-container {
+    margin-bottom: 16px;
+}
+
+.select-country {
+    border: 1px solid #ddd;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+}
+
+.label-country {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #717171;
+    background-color: #f7f7f7;
+}
+
+.value-country {
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ddd;
+}
+
+.input-phone {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    outline: none;
+}
+
+.text-disclaimer {
+    font-size: 14px;
+    color: #717171;
+    margin-bottom: 16px;
+}
+
+.link-privacy {
+    color: #222;
+    text-decoration: underline;
+}
+
+.button-continue {
+    width: 100%;
+    padding: 14px;
+    background-color: #e41d57;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 16px;
+}
+
+.button-continue:hover {
+    background-color: #d01950;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.divider span {
+    padding: 0 16px;
+    color: #717171;
+}
+
+.login-social {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.button-social {
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.icon-facebook {
+    color: #1877f2;
+}
+
+.button-email {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Property Card */
+.card-property {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.info-property {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.image-property {
+    width: 96px;
+    height: 96px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.image-property img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name-property {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.type-property {
+    font-size: 14px;
+    color: #717171;
+    margin-bottom: 4px;
+}
+
+.rating-property {
+    font-size: 14px;
+}
+
+.icon-star {
+    color: #222;
+}
+
+.label-superhost {
+    font-weight: 500;
+}
+
+/* Price Details */
+.details-price {
+    border-top: 1px solid #ddd;
+    padding-top: 16px;
+}
+
+.row-price {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.border-bottom {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+.text-total {
+    font-weight: 600;
+}

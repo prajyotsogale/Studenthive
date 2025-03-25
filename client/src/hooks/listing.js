@@ -33,9 +33,13 @@ export function useCreateListing() {
         });
   
         /* Send a POST request to server */
+        const authToken = localStorage.getItem("token");
         const response = await fetch(`http://localhost:3001/properties/create`, {
           method: "POST",
           body: listingForm,
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
         });
   
         if (response.ok) {
@@ -56,10 +60,15 @@ export function useGetListingDetails() {
   
   const getListingDetails = async (listingId) => {
     try {
+      const authToken = localStorage.getItem("token");
       const response = await fetch(
         `http://localhost:3001/properties/${listingId}`,
         {
-          method: "GET",
+          method: "GET", 
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
         }
       );
 

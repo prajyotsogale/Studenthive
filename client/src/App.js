@@ -12,7 +12,11 @@ import ReservationList from "./pages/ReservationList";
 import CategoryPage from "./pages/CategoryPage";
 import SearchPage from "./pages/SearchPage";
 import PaymentGateway from "./pages/PaymentGateway";
-import RazorpayGateway from "./pages/RazorpayGateway";
+
+import Checkout from "./pages/Checkout";
+
+import RazorpayGateway from "./pages/Booking/RazorpayGateway";
+import BookingRequestPage from "./pages/Booking/BookingRequestPage";
 
 function App() {
   return (
@@ -22,6 +26,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/payment" element={<PaymentGateway />} />
+        
+          <Route path="/c/:id" element={<Checkout/>} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/create-listing" element={<CreateListing />} />
           <Route path="/properties/:listingId" element={<ListingDetails />} />
@@ -30,6 +36,8 @@ function App() {
           <Route path="/:userId/trips" element={<TripList />} />
           <Route path="/:userId/wishList" element={<WishList />} />
           <Route path="/raz" element={<RazorpayGateway />} />
+          {/* <Route path="/abc" element={<BookingRequestPage />} /> */}
+
           <Route path="/:userId/properties" element={<PropertyList />} />
           <Route path="/:userId/reservations" element={<ReservationList />} />
         </Routes>

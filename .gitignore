@@ -1,6 +1,0 @@
-# Node.js dependencies
-node_modules/
-.env
-package-lock.json
-client/node_modules/
-server/node_modules/

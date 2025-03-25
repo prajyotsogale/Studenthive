@@ -1,0 +1,188 @@
+/* General Styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+  
+  .rotate {
+    transform: rotate(270deg);
+  }
+  
+  /* Grid Layout */
+  .grid {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .left-panel {
+    flex: 2;
+  }
+  
+  .right-panel {
+    flex: 1;
+  }
+  
+  /* Trip Details */
+  .trip-details h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .detail-item {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .detail-label {
+    font-weight: bold;
+  }
+  
+  .edit-button {
+    color: blue;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .detail-value {
+    color: #555;
+  }
+  
+  /* Login Section */
+  .login-section h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .country-selector {
+    margin-bottom: 10px;
+  }
+  
+  .label {
+    font-size: 14px;
+    color: gray;
+  }
+  
+  .selector {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .info-text {
+    font-size: 12px;
+    color: gray;
+    margin-bottom: 10px;
+  }
+  
+  .primary-button {
+    width: 100%;
+    padding: 12px;
+    background: pink;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .line {
+    flex: 1;
+    height: 1px;
+    background: gray;
+  }
+  
+  .social-login {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .social-button {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid gray;
+    cursor: pointer;
+  }
+  
+  .email-button {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid gray;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  /* Property Details */
+  .property-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  
+  .property-info {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .property-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+  }
+  
+  .property-type {
+    font-size: 14px;
+    color: gray;
+  }
+  
+  .ratings {
+    font-size: 12px;
+    color: #555;
+  }
+  
+  .price-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  
+  .total {
+    font-weight: bold;
+  }
+  

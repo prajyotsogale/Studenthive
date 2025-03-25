@@ -4,18 +4,20 @@ const Booking = require("../models/Booking")
 const User = require("../models/User")
 const Listing = require("../models/Listing")
 const { getTripsByUserId, getListingByUserId, getProperties, getReservations } = require("../controllers/User")
+const { verifyJWT } = require("../middlewares/verify")
+const { verify } = require("jsonwebtoken")
 
 /* GET TRIP LIST */
-router.get("/:userId/trips", getTripsByUserId )
+router.get("/:userId/trips",verifyJWT , getTripsByUserId )
 
 /* ADD LISTING TO WISHLIST */
-router.patch("/:userId/:listingId", getListingByUserId)
+router.patch("/:userId/:listingId",verifyJWT , getListingByUserId)
 
 /* GET PROPERTY LIST */
-router.get("/:userId/properties", getProperties)
+router.get("/properties/:userId",verifyJWT , getProperties)
 
 /* GET RESERVATION LIST */
-router.get("/:userId/reservations", getReservations )
+router.get("/:userId/reservations",verifyJWT , getReservations )
 
 
 module.exports = router

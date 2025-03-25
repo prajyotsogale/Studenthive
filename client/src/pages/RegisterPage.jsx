@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Register.scss";
 
@@ -9,12 +9,15 @@ const RegisterPage = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    profileImage: null,
-    isHost: false,
+    profileImage: null, // File upload
   });
 
+  const [isChecked, setIsChecked] = useState(false);
   const [emailValid, setEmailValid] = useState(true);
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const navigate = useNavigate();
+
+  const role = isChecked ? "host" : "user"; // Role logic
 
   const handleChange = (e) => {
     const { name, value, files, type, checked } = e.target;
@@ -22,13 +25,12 @@ const RegisterPage = () => {
     if (name === "email") {
       const isVcetEmail = value.endsWith("@vcet.edu.in");
       setEmailValid(isVcetEmail);
-      setFormData((prev) => ({ ...prev, isHost: !isVcetEmail }));
     }
 
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: type === "file" ? files[0] : type === "checkbox" ? checked : value,
-    });
+    }));
   };
 
   useEffect(() => {
@@ -37,21 +39,19 @@ const RegisterPage = () => {
     );
   }, [formData.password, formData.confirmPassword]);
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!passwordMatch) return;
+    if (!passwordMatch) return alert("Passwords do not match!");
 
     try {
       const register_form = new FormData();
       for (const key in formData) {
         register_form.append(key, formData[key]);
       }
-
+      register_form.append("role", role); // Append role
       const response = await fetch(`http://localhost:3001/auth/register`, {
         method: "POST",
-        body: register_form,
+        body:  register_form,
       });
 
       if (response.ok) {
@@ -83,7 +83,7 @@ const RegisterPage = () => {
           <input
             placeholder="Email"
             name="email"
-            type="email"
+            type="text"
             value={formData.email}
             onChange={handleChange}
             required
@@ -133,10 +133,9 @@ const RegisterPage = () => {
           <div className="host-option">
             <input
               type="checkbox"
-              name="isHost"
-              checked={formData.isHost}
-              onChange={handleChange}
-              disabled={!emailValid} 
+              checked={isChecked}
+              onChange={(e) => setIsChecked(e.target.checked)}
+
             />
             <label>Become a Host</label>
           </div>

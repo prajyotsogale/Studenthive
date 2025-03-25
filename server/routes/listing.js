@@ -4,7 +4,7 @@ const cloudinary = require("../utils/cloudinary");
 
 const Listing = require("../models/Listing");
 const User = require("../models/User");
-const { verifyJWT } = require("../middlewares/verify");
+const { verifyJWT, verifyAdmin } = require("../middlewares/verify");
 const { createListing, getListing, getListingBySearch, getListingByListingId } = require("../controllers/listing");
 
 /* Configuration Multer for File Upload */
@@ -14,18 +14,18 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage });  
 
 /* CREATE LISTING */
-router.post("/create", upload.array("listingPhotos"), createListing );
+router.post("/create", upload.array("listingPhotos"),verifyJWT, verifyAdmin , createListing );
 
 /* GET lISTINGS BY CATEGORY */
-router.get("/", getListing )
+router.get("/", verifyJWT ,getListing )
 
 /* GET LISTINGS BY SEARCH */
-router.get("/search/:search", getListingBySearch )
+router.get("/search/:search",verifyJWT , getListingBySearch )
 
 /* LISTING DETAILS */
-router.get("/:listingId", getListingByListingId)
+router.get("/:listingId",verifyJWT , getListingByListingId)
 
 module.exports = router

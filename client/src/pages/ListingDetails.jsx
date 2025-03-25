@@ -1,33 +1,33 @@
 import { useEffect, useState } from "react";
 import "../styles/ListingDetails.scss";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { facilities } from "../data";
 
+import { addMonths } from "date-fns"; // ✅ Import fixed
+import { useNavigate, useParams } from "react-router-dom";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { DateRange } from "react-date-range";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
 import { useSupplier } from "../context/Refresh";
 import { useGetListingDetails } from "../hooks/listing";
 import { useCreateBooking } from "../hooks/booking";
 
 const ListingDetails = () => {
-  const {getListingDetails , listing, loading} = useGetListingDetails();
-  const {createBooking} = useCreateBooking();
-
+  const { getListingDetails, listing, loading } = useGetListingDetails();
+  const { createBooking } = useCreateBooking();
   const { listingId } = useParams();
+  const navigate = useNavigate();
+  const { setPrice } = useSupplier();
+  const customerId = useSelector((state) => state?.user?._id);
 
-  
+  // ✅ Default stay duration in months
+  const [months, setMonths] = useState(1);
+  localStorage.setItem("months" , months);
+  // ✅ Store booked date ranges from API
+  const [bookedDateRanges, setBookedDateRanges] = useState([]);
 
-  useEffect(() => {
-    getListingDetails(listingId);
-  }, []);
-
-
-  /* BOOKING CALENDAR */
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -36,56 +36,92 @@ const ListingDetails = () => {
     },
   ]);
 
-  const handleSelect = (ranges) => {
-    // Update the selected date range when user makes a selection
-    setDateRange([ranges.selection]);
+  useEffect(() => {
+    getListingDetails(listingId);
+
+    const fetchBooking = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/bookings/getbookings/${listingId}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+
+        const bookings = await response.json();
+        if (Array.isArray(bookings)) {
+          const transformedBookings = bookings.map((booking) => ({
+            start: new Date(booking.startDate),
+            end: new Date(booking.endDate),
+          }));
+          setBookedDateRanges(transformedBookings);
+        }
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      }
+    };
+
+    fetchBooking();
+  }, [listingId]);
+
+  // ✅ Disable booked date ranges
+  const isDateDisabled = (date) => {
+    return bookedDateRanges.some(
+      (range) => date >= range.start && date <= range.end
+    );
   };
 
-  const start = new Date(dateRange[0].startDate);
-  const end = new Date(dateRange[0].endDate);
-  const dayCount = Math.round(end - start) / (1000 * 60 * 60 * 24); // Calculate the difference in day unit
+  // ✅ Handle date selection & auto-set end date
+  const handleSelect = (ranges) => {
+    let start = new Date(ranges.selection.startDate);
+    let end = addMonths(start, months); // ✅ Use `addMonths` instead of manual `.setMonth()`
 
-  /* SUBMIT BOOKING */
-  const customerId = useSelector((state) => state?.user?._id);
 
-  const navigate = useNavigate()
-  const {setPrice} = useSupplier();
-    
-  const handleSubmit = async () => {
-      const bookingForm = {
-        customerId,
-        listingId,
-        hostId: listing.creator._id,
-        startDate: dateRange[0].startDate.toDateString(),
-        endDate: dateRange[0].endDate.toDateString(),
-        totalPrice: listing.price * dayCount,
+    // ✅ Prevent booking overlap with booked dates
+    for (let range of bookedDateRanges) {
+      if (
+        (start >= range.start && start <= range.end) || // Start inside booked range
+        (end >= range.start && end <= range.end) || // End inside booked range
+        (start <= range.start && end >= range.end) // Selected range fully covers a booked range
+      ) {
+        alert(
+          "Selected dates overlap with an already booked period. Please choose a different range."
+        );
+        return;
       }
+    }
 
-      const result = await createBooking(bookingForm);
-      if(result.status) {
-        navigate("/raz")
-      }
+    setDateRange([{ startDate: start, endDate: end, key: "selection" }]);
+  };
 
-  }
+  // ✅ Calculate total price
+  const totalPrice = listing?.price ? listing.price * months : 0;
+
+  // ✅ Handle booking submission
+  console.log(listingId) ;
+const handleSubmit = async () => {
+    navigate(`/c/${listingId}`);
+  };
+
+  localStorage.setItem("startDate" ,  dateRange[0].startDate.toDateString())
+  localStorage.setItem("endDate" ,  dateRange[0].endDate.toDateString())
 
   return loading ? (
     <Loader />
   ) : (
     <>
       <Navbar />
-      
       <div className="listing-details">
         <div className="title">
           <h1>{listing?.title}</h1>
-          <div></div>
         </div>
 
         <div className="photos">
-          {listing?.listingPhoto?.map((item) => (
-            <img
-              src={item}
-              alt="listing photo"
-            />
+          {listing?.listingPhoto?.map((item, index) => (
+            <img key={index} src={item} alt="listing photo" />
           ))}
         </div>
 
@@ -100,12 +136,6 @@ const ListingDetails = () => {
         <hr />
 
         <div className="profile">
-          {/* <img
-            src={`http://localhost:3001/${listing.creator.profileImagePath.replace(
-              "public",
-              ""
-            )}`}
-          /> */}
           <h3>
             Hosted by {listing?.creator?.firstName} {listing?.creator?.lastName}
           </h3>
@@ -124,41 +154,48 @@ const ListingDetails = () => {
           <div>
             <h2>What this place offers?</h2>
             <div className="amenities">
-              {listing?.amenities[0].split(",").map((item, index) => (
-                <div className="facility" key={index}>
-                  <div className="facility_icon">
-                    {
-                      facilities?.find((facility) => facility.name === item)
-                        ?.icon
-                    }
-                  </div>
-                  <p>{item}</p>
-                </div>
-              ))}
+              {listing?.amenities?.[0]
+                ? listing.amenities[0].split(",").map((item, index) => (
+                    <div className="facility" key={index}>
+                      <p>{item}</p>
+                    </div>
+                  ))
+                : "No amenities listed"}
             </div>
           </div>
 
           <div>
             <h2>How long do you want to stay?</h2>
-            <div className="date-range-calendar">
-              <DateRange ranges={dateRange} onChange={handleSelect} />
-              {dayCount > 1 ? (
-                <h2>
-                  ₹{listing?.price} / {dayCount} nights
-                </h2>
-              ) : (
-                <h2>
-                  ₹{listing?.price} / {dayCount} night
-                </h2>
-              )}
+            <label>
+              Select Duration (Months):
+              <select
+                onChange={(e) => setMonths(parseInt(e.target.value))}
+                value={months}
+              >
+                {[...Array(12).keys()].map((num) => (
+                  <option key={num + 1} value={num + 1}>
+                    {num + 1} Month{num > 0 ? "s" : ""}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-              <h2>Total price: ₹{Math.round(listing?.price / dayCount)}</h2>
+            <div className="date-range-calendar">
+              <DateRange
+                ranges={dateRange}
+                onChange={handleSelect}
+                minDate={new Date()}
+                showMonthAndYearPickers={true}
+                disabledDates={bookedDateRanges.map((range) => range.start)} // ✅ Fix invalid prop
+              />
+
+              <h2>₹{listing?.price} / month</h2>
+              <h2>Total price: ₹{totalPrice}</h2>
               <p>Start Date: {dateRange[0].startDate.toDateString()}</p>
               <p>End Date: {dateRange[0].endDate.toDateString()}</p>
-              <Link to={`/raz`}><button className="button" type="submit" onClick={handleSubmit}>
+              <button className="button" type="submit" onClick={handleSubmit}>
                 BOOKING
-              </button></Link>
-              
+              </button>
             </div>
           </div>
         </div>
@@ -169,4 +206,4 @@ const ListingDetails = () => {
   );
 };
 
-export default ListingDetails;
+export default ListingDetails;

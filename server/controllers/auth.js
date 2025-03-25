@@ -7,8 +7,7 @@ const User = require("../models/User");
 const register = async (req, res) => {
     try {
       /* Take all information from the form */
-      const { firstName, lastName, email, password } = req.body;
-  
+      const { firstName, lastName, email, password , role} = req.body;
       /* The uploaded file is available as req.file */
       const profileImage = req.file;
       const result = await cloudinary.uploader.upload(profileImage.path);
@@ -35,6 +34,7 @@ const register = async (req, res) => {
         email,
         password: hashedPassword,
         userImage: result.secure_url,
+        role
       });
   
   
@@ -56,14 +56,15 @@ const register = async (req, res) => {
   const login =  async (req, res) => {
     try {
       /* Take the infomation from the form */
-      const { email, password } = req.body
-  
+      const { email, password, role } = req.body;
+      
       /* Check if user exists */
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ email , role });
       if (!user) {
         return res.status(409).json({ message: "User doesn't exist!" });
       }
-  
+
+      
       /* Compare the password with the hashed password */
       const isMatch = await bcrypt.compare(password, user.password)
       if (!isMatch) {
@@ -71,14 +72,14 @@ const register = async (req, res) => {
       }
   
       /* Generate JWT token */
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+      const token = jwt.sign({ id: user }, process.env.JWT_SECRET)
       delete user.password
   
-      res.status(200).json({ token, user })
+      return res.status(200).json({ token, user ,role })
   
     } catch (err) {
       console.log(err)
-      res.status(500).json({ error: err.message })
+      return res.status(500).json({ error: err.message })
     }
   }
 
