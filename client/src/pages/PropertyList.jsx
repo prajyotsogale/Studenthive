@@ -15,7 +15,7 @@ const PropertyList = () => {
   const getPropertyList = async () => {
     const authToken = localStorage.getItem("token")
     try {
-      const response = await fetch(`https://studenthive.onrender.com/users/properties/${user._id}`, {
+      const response = await fetch(`http://localhost:3001/users/properties/${user._id}`, {
         method: "GET" ,
         headers: {
           Authorization: `Bearer ${authToken}`

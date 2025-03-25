@@ -28,7 +28,7 @@ function RazorpayGateway() {
       return;
     }
 
-    const result = await axios.post('https://studenthive.onrender.com/bookings/create-order' , {
+    const result = await axios.post('http://localhost:3001/bookings/create-order' , {
       amount : price ,
     });
 
@@ -55,7 +55,7 @@ function RazorpayGateway() {
           razorpaySignature: response.razorpay_signature,
         };
 
-        const result = await axios.post('https://studenthive.onrender.com/bookings/success', data);
+        const result = await axios.post('http://localhost:3001/bookings/success', data);
 
         alert(result.data.msg);
       },
