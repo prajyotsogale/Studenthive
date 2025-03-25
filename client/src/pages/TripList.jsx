@@ -18,7 +18,7 @@ const TripList = () => {
     try {
       const authToken = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3001/users/${userId}/trips`,
+        `https://studenthive.onrender.com/users/${userId}/trips`,
         {
           method: "GET",
           headers: {

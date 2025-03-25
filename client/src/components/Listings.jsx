@@ -19,8 +19,8 @@ const Listings = () => {
       const authToken = localStorage.getItem("token");
       const response = await fetch(
         selectedCategory !== "All"
-          ? `http://localhost:3001/properties?category=${selectedCategory}`
-          : `http://localhost:3001/properties`,
+          ? `https://studenthive.onrender.com/properties?category=${selectedCategory}`
+          : `https://studenthive.onrender.com/properties`,
         {
           method: "GET",
           headers: {

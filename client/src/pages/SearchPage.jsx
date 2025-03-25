@@ -18,7 +18,7 @@ const SearchPage = () => {
   const getSearchListings = async () => {
     try {
       const authToken = localStorage.getItem("token")
-      const response = await fetch(`http://localhost:3001/properties/search/${search}`, {
+      const response = await fetch(`https://studenthive.onrender.com/properties/search/${search}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${authToken}`
