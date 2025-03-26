@@ -34,7 +34,7 @@ export function useCreateListing() {
   
         /* Send a POST request to server */
         const authToken = localStorage.getItem("token");
-        const response = await fetch(`http://localhost:3001/properties/create`, {
+        const response = await fetch(`https://studenthive.onrender.com/properties/create`, {
           method: "POST",
           body: listingForm,
           headers: {
@@ -62,7 +62,7 @@ export function useGetListingDetails() {
     try {
       const authToken = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3001/properties/${listingId}`,
+        `https://studenthive.onrender.com/properties/${listingId}`,
         {
           method: "GET", 
           headers: {
