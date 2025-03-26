@@ -14,7 +14,7 @@ router.get("/:userId/trips",verifyJWT , getTripsByUserId )
 router.patch("/:userId/:listingId",verifyJWT , getListingByUserId)
 
 /* GET PROPERTY LIST */
-router.get("/properties/:userId",verifyJWT , getProperties)
+router.get("/properties/:userId", getProperties)
 
 /* GET RESERVATION LIST */
 router.get("/:userId/reservations",verifyJWT , getReservations )

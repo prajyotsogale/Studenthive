@@ -20,7 +20,7 @@ const upload = multer({ storage });
 router.post("/create", upload.array("listingPhotos"),verifyJWT, verifyAdmin , createListing );
 
 /* GET lISTINGS BY CATEGORY */
-router.get("/", verifyJWT ,getListing )
+router.get("/",getListing )
 
 /* GET LISTINGS BY SEARCH */
 router.get("/search/:search",verifyJWT , getListingBySearch )
