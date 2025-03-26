@@ -72,17 +72,15 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <div>
-            <input
-              type="checkbox"
-              id="roleCheckbox"
-              checked={isChecked}
-              onChange={(e) => setIsChecked(e.target.checked)} // ✅ Update role on click
-            />
-            <label htmlFor="roleCheckbox" style={{ color: "white" }}>
-              Login as Host
-            </label>
-          </div>
+          <div className="checkbox-container">
+  <input
+    type="checkbox"
+    id="roleCheckbox"
+    checked={isChecked}
+    onChange={(e) => setIsChecked(e.target.checked)} // ✅ Update role on click
+  />
+  <label htmlFor="roleCheckbox">Login as Host</label>
+</div>
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           <button type="submit">LOG IN</button>
         </form>

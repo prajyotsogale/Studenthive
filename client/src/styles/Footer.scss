@@ -4,12 +4,18 @@
 .footer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 50px;
-  padding: 10px 70px;
+  padding: 40px 70px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-family: 'Arial', sans-serif;
 
   @include lg {
-    padding: 10px 30px;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+    text-align: center;
   }
 
   &_left {
@@ -20,47 +26,59 @@
       margin-bottom: 20px;
     }
 
+    p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+    }
+
     &_socials {
       display: flex;
-      gap: 25px;
+      gap: 15px;
       margin-top: 20px;
 
       &_icon {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: $pinkred;
+        background-color: #e41d57;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        transition: all 0.5s ease-in-out;
+        transition: all 0.3s ease;
+
+        svg {
+          fill: white;
+          width: 20px;
+          height: 20px;
+        }
 
         &:hover {
           transform: scale(1.2);
+          background-color: #d01950;
         }
       }
     }
   }
 
   &_center {
-    text-decoration: none;
-
     ul {
       list-style: none;
-      margin-top: 20px;
-      cursor: pointer;
+      padding: 0;
 
-      li:hover {
-        color: $pinkred
-      }
+      li {
+        margin-bottom: 10px;
+        font-size: 14px;
 
-      a {
-        text-decoration: none;
-        color: black;
+        a {
+          text-decoration: none;
+          color: #333;
+          transition: color 0.3s ease;
 
-        &:hover {
-          color: $pinkred;
+          &:hover {
+            color: #e41d57;
+          }
         }
       }
     }
@@ -74,20 +92,49 @@
     max-width: 350px;
 
     h3 {
+      font-size: 18px;
+      font-weight: bold;
       margin-bottom: 20px;
+      color: #333;
     }
 
     &_info {
       display: flex;
+      flex-direction: column;
+      gap: 10px;
 
       p {
-        margin-left: 20px;
-        margin-bottom: 15px;
+        font-size: 14px;
+        color: #555;
+        margin: 0;
+        line-height: 1.6;
+
+        svg {
+          margin-right: 10px;
+          fill: #e41d57;
+        }
       }
     }
 
     @include sm {
       display: none;
+    }
+  }
+
+  &_bottom {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+
+    a {
+      text-decoration: none;
+      color: #e41d57;
+      font-weight: bold;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }

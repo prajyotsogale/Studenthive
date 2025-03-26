@@ -83,7 +83,6 @@ const RequestToBookPage = () => {
             </div>
           </div>
         </div>
-
         {/* Sidebar */}
         <div className="sidebar">
           {/* Property Card */}
