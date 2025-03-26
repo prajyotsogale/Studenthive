@@ -50,18 +50,34 @@ const ListingCard = ({
 
   const patchWishList = async () => {
     if (user?._id !== creator._id) {
-    const response = await fetch(
-      `https://studenthive.onrender.com/users/${user?._id}/${listingId}`,
-      {
-        method: "PATCH",
-        header: {
-          "Content-Type": "application/json",
-        },
+      const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+      if (!token) {
+        console.error("No token found. Please log in.");
+        return;
       }
-    );
-    const data = await response.json();
-    dispatch(setWishList(data.wishList));
-  } else { return }
+  
+      const response = await fetch(
+        `https://studenthive.onrender.com/users/${user?._id}/${listingId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add the Authorization header
+          },
+        }
+      );
+  
+      if (response.status === 401) {
+        console.error("Unauthorized: Invalid or missing token");
+        return;
+      }
+  
+      const data = await response.json();
+      dispatch(setWishList(data.wishList));
+    } else {
+      console.warn("User cannot add their own listing to the wishlist.");
+      return;
+    }
   };
 
 
