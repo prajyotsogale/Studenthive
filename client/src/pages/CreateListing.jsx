@@ -454,7 +454,7 @@ const CreateListing = () => {
                 onChange={handleChangeDescription}
                 required
               />
-              <p>Highlight details</p>
+{/*               <p>Highlight details</p>
               <textarea
                 type="text"
                 placeholder="Highlight details"
@@ -462,7 +462,7 @@ const CreateListing = () => {
                 value={formDescription.highlightDesc}
                 onChange={handleChangeDescription}
                 required
-              />
+              /> */}
               <p>Now, set your PRICE</p>
               <span>₹</span>
               <input
