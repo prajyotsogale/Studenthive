@@ -99,12 +99,27 @@ const CreateListing = () => {
 
   const navigate = useNavigate();
 
-  const handlePost = async (e) => {
-    e.preventDefault();
-    const response = await createListing(creatorId , category, type, formLocation, guestCount, bedroomCount, bedCount, bathroomCount, amenities, formDescription , photos);
-  
-    
-  };
+const handlePost = async (e) => {
+  e.preventDefault();
+  const response = await createListing(
+    creatorId, 
+    category, 
+    type, 
+    formLocation, 
+    guestCount, 
+    bedroomCount, 
+    bedCount, 
+    bathroomCount, 
+    amenities, 
+    formDescription, 
+    photos
+  );
+
+  if (response) { // Assuming `createListing` returns a response upon success
+    navigate("/"); // Redirect to home page
+  }
+};
+
   return (
     <>
       <Navbar />
