@@ -60,12 +60,12 @@ function RazorpayGateway() {
         alert(result.data.msg);
       },
       prefill: {
-        name: 'Aman',
-        email: 'example@example.com',
-        contact: '9999999999',
+        name: 'Studenthive',
+        email: 'psogale212@gmail.com',
+        contact: '9970247220',
       },
       notes: {
-        address: 'Example Corporate Office',
+        address: 'Studenthive Corporate Office',
       },
       theme: {
         color: '#61dafb',
