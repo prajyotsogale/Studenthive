@@ -88,7 +88,7 @@
       &_text {
         position: relative;
         z-index: 1;
-        color: white;
+        color: white; // Ensure text color is white
         text-align: center;
 
         &_icon {
@@ -100,6 +100,7 @@
           font-weight: 700;
           font-size: 18px;
           letter-spacing: 1px;
+          color: white; // Ensure the category name is white
         }
       }
     }
