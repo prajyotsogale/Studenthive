@@ -50,7 +50,7 @@ const ReservationList = () => {
           <ListingCard
             listingId={listingId._id}
             creator={hostId._id}
-            listingPhotoPaths={listingId.listingPhotoPaths}
+            listingPhoto = {listingId.listingPhoto}
             city={listingId.city}
             province={listingId.province}
             country={listingId.country}

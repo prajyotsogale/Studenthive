@@ -23,6 +23,7 @@ const PropertyList = () => {
       })
       const data = await response.json()
       dispatch(setPropertyList(data))
+      console.log("Property List", data)
       setLoading(false)
     } catch (err) {
       console.log("Fetch all properties failed", err.message)
@@ -43,6 +44,7 @@ const PropertyList = () => {
             _id,
             creator,
             listingPhotoPaths,
+            listingPhoto,
             city,
             province,
             country,
@@ -54,6 +56,7 @@ const PropertyList = () => {
             <ListingCard
               listingId={_id}
               creator={creator}
+              listingPhoto = {listingPhoto}
               listingPhotoPaths={listingPhotoPaths}
               city={city}
               province={province}

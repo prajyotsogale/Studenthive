@@ -17,6 +17,7 @@ import Checkout from "./pages/Checkout";
 
 import RazorpayGateway from "./pages/Booking/RazorpayGateway";
 import BookingRequestPage from "./pages/Booking/BookingRequestPage";
+import Success from "./pages/Success";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
 
           <Route path="/:userId/properties" element={<PropertyList />} />
           <Route path="/:userId/reservations" element={<ReservationList />} />
+          <Route path="/Success" element={<Success/>} />
         </Routes>
       </BrowserRouter>
     </div>

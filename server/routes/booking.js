@@ -41,32 +41,29 @@ router.post("/create-order", async (req, res) => {
   
 
 /* VERIFY PAYMENT */
-router.post("/success", async (req, res) => {
-    try {
-      const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
-  
-      if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
-        return res.status(400).json({ success: false, message: "Missing payment details" });
-      }
-  
-      console.log("Verifying Payment:", req.body);
-  
-      const hmac = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET);
-      hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
-      const generatedSignature = hmac.digest("hex");
-  
-      if (generatedSignature === razorpay_signature) {
-        console.log("Payment Verified Successfully!");
-        res.json({ success: true, payment_id: razorpay_payment_id });
-      } else {
-        console.log("Payment Verification Failed: Signature mismatch");
-        res.status(400).json({ success: false, message: "Invalid signature" });
-      }
-    } catch (error) {
-      console.error("Error verifying payment:", error);
-      res.status(500).json({ error: error.message });
+router.post('/verify-payment', async (req, res) => {
+  try {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+      return res.status(400).json({ success: false, message: "Missing payment details" });
     }
-  });
-  
+
+    const hmac = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET);
+    hmac.update(`${razorpay_order_id}|${razorpay_payment_id}`);
+    const generatedSignature = hmac.digest("hex");
+
+    if (generatedSignature === razorpay_signature) {
+      console.log("✅ Payment Verified Successfully");
+      return res.json({ success: true, payment_id: razorpay_payment_id });
+    } else {
+      console.log("❌ Signature mismatch");
+      return res.status(400).json({ success: false, message: "Invalid signature" });
+    }
+  } catch (error) {
+    console.error("❌ Error verifying payment:", error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
 
 module.exports = router;

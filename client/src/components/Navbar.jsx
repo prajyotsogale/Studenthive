@@ -86,7 +86,7 @@ const Navbar = () => {
                 <Link to={`/${user._id}/wishList`}>Wish List</Link>
               </>
             )}
-            <Link to={`/properties/${user._id}`}>Property List</Link>
+            <Link to={`/${user._id}/properties`}>Property List</Link>
             <Link to={`/${user._id}/reservations`}>Reservation List</Link>
             {role === "host" && (
               <>

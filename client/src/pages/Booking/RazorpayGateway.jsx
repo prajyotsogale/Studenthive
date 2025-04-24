@@ -1,79 +1,82 @@
 import React from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function RazorpayGateway() {
   const price = localStorage.getItem("price") || "0";
+  const navigate = useNavigate();
 
   function loadScript(src) {
     return new Promise((resolve) => {
       const script = document.createElement('script');
       script.src = src;
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
       document.body.appendChild(script);
     });
   }
 
   async function displayRazorpay() {
-    const res = await loadScript(
-      'https://checkout.razorpay.com/v1/checkout.js'
-    );
+    const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
 
     if (!res) {
-      alert('Razorpay SDK failed to load. Are you online?');
+      alert('Razorpay SDK failed to load.');
       return;
     }
 
-    const result = await axios.post('https://studenthive.onrender.com/bookings/create-order', {
-      amount: price,
-    });
+    try {
+      const result = await axios.post('https://studenthive.onrender.com/bookings/create-order', {
+        amount: price,
+      });
 
-    if (!result) {
-      alert('Server error. Are you online?');
-      return;
-    }
+      const { amount, id: order_id, currency } = result.data;
 
-    const { amount, id: order_id, currency } = result.data;
-
-    const options = {
-      key: 'rzp_live_Cj4Nty3eyy07Vi', // Enter the Key ID generated from the Dashboard
-      amount: amount.toString(),
-      currency: currency,
-      name: 'Studenthive',
-      description: 'Test Transaction',
-      image: "https://example.com/your_logo",
-      order_id: order_id,
-      handler: async function (response) {
-        const data = {
-          orderCreationId: order_id,
-          razorpayPaymentId: response.razorpay_payment_id,
-          razorpayOrderId: response.razorpay_order_id,
-          razorpaySignature: response.razorpay_signature,
-        };
-
-        const result = await axios.post('https://studenthive.onrender.com/bookings/success', data);
-
-        alert(result.data.msg);
-      },
-      prefill: {
+      const options = {
+        key: 'rzp_live_Cj4Nty3eyy07Vi', // Change to your test key if testing
+        amount: amount.toString(),
+        currency,
         name: 'Studenthive',
-        email: 'psogale212@gmail.com',
-        contact: '9970247220',
-      },
-      notes: {
-        address: 'Studenthive Corporate Office',
-      },
-      theme: {
-        color: '#61dafb',
-      },
-    };
+        description: 'Test Transaction',
+        image: 'https://example.com/logo.png',
+        order_id,
+        handler: async function (response) {
+          const data = {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          };
 
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
+          try {
+            const verifyRes = await axios.post('https://studenthive.onrender.com/bookings/verify-payment', data);
+            if (verifyRes.data.success) {
+              navigate('/Success');
+            } else {
+              alert('Payment verification failed.');
+            }
+          } catch (err) {
+            console.error('Payment verification error:', err);
+            alert('Error verifying payment');
+          }
+        },
+        prefill: {
+          name: 'Studenthive',
+          email: 'psogale212@gmail.com',
+          contact: '9970247220',
+        },
+        notes: {
+          address: 'Studenthive Corporate Office',
+        },
+        theme: {
+          color: '#61dafb',
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Order creation failed:", error);
+      alert("Something went wrong while creating the order.");
+    }
   }
 
   return (
@@ -98,12 +101,11 @@ const styles = {
     alignItems: 'center',
     height: '100vh',
     backgroundColor: '#f9f9f9',
-    fontFamily: 'Arial, sans-serif',
   },
   card: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fff',
     borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
     padding: '20px 30px',
     textAlign: 'center',
     maxWidth: '400px',
@@ -112,12 +114,10 @@ const styles = {
   title: {
     fontSize: '24px',
     fontWeight: 'bold',
-    color: '#333333',
     marginBottom: '10px',
   },
   description: {
     fontSize: '16px',
-    color: '#555555',
     marginBottom: '20px',
   },
   amount: {
@@ -126,17 +126,12 @@ const styles = {
   },
   button: {
     backgroundColor: '#61dafb',
-    color: '#ffffff',
+    color: '#fff',
     border: 'none',
     borderRadius: '4px',
     padding: '12px 20px',
     fontSize: '16px',
-    fontWeight: 'bold',
     cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
-  },
-  buttonHover: {
-    backgroundColor: '#4ec0e0',
   },
 };
 
