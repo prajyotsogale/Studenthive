@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import zxcvbn from "zxcvbn"; // Import zxcvbn for password strength checking
 import "../styles/Register.scss";
 
 const RegisterPage = () => {
@@ -15,6 +16,7 @@ const RegisterPage = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [emailValid, setEmailValid] = useState(true);
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [passwordStrength, setPasswordStrength] = useState(null); // Password strength state
   const navigate = useNavigate();
 
   const role = isChecked ? "host" : "user"; // Role logic
@@ -25,6 +27,11 @@ const RegisterPage = () => {
     if (name === "email") {
       const isVcetEmail = value.endsWith("@vcet.edu.in");
       setEmailValid(isVcetEmail);
+    }
+
+    if (name === "password") {
+      const strength = zxcvbn(value); // Evaluate password strength
+      setPasswordStrength(strength);
     }
 
     setFormData((prev) => ({
@@ -51,7 +58,7 @@ const RegisterPage = () => {
       register_form.append("role", role); // Append role
       const response = await fetch(`https://studenthive.onrender.com/auth/register`, {
         method: "POST",
-        body:  register_form,
+        body: register_form,
       });
 
       if (response.ok) {
@@ -99,6 +106,16 @@ const RegisterPage = () => {
             type="password"
             required
           />
+          {passwordStrength && (
+            <div className="password-strength">
+              <p>Password Strength: {["Weak", "Fair", "Good", "Strong"][passwordStrength.score]}</p>
+              <progress
+                value={passwordStrength.score}
+                max="4"
+                style={{ width: "100%" }}
+              ></progress>
+            </div>
+          )}
           <input
             placeholder="Confirm Password"
             name="confirmPassword"
@@ -135,7 +152,6 @@ const RegisterPage = () => {
               type="checkbox"
               checked={isChecked}
               onChange={(e) => setIsChecked(e.target.checked)}
-
             />
             <label>Become a Host</label>
           </div>
