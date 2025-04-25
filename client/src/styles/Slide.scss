@@ -1,26 +1,45 @@
-.slide {
+.slide-container {
+  position: relative;
   width: 100vw;
   height: 80vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-    url("../../public/assets/slide.jpg") center/cover no-repeat;
-  text-align: center;
-  transition: background 0.5s ease;
-
-  &:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
-      url("../../public/assets/slide.jpg") center/cover no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: opacity 0.8s ease-in-out;
+  
+  &.active {
+    opacity: 1;
   }
+}
+
+.proSlider{
+  opacity: 0;
+}
+
+.text-content {
+  text-align: center;
+  z-index: 2;
+  padding: 20px;
 
   h1 {
-    padding: 40px 20px;
-    font-size: 3vw;
+    font-size: 3.5vw;
     color: white;
     max-width: 800px;
     line-height: 1.4;
+    margin: 0 auto;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.8s ease-out forwards;
 
     @media (max-width: 768px) {
       font-size: 5vw;
@@ -28,29 +47,49 @@
 
     @media (max-width: 480px) {
       font-size: 6vw;
-      padding: 20px 10px;
     }
   }
+}
 
-  .cta-button {
-    margin-top: 20px;
-    padding: 12px 24px;
-    font-size: 1.2rem;
-    color: white;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    border: none;
-    border-radius: 12px;
+.slide-indicators {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+
+  .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: transparent;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 0;
+    transition: all 0.3s ease;
+    outline: none;
+
+    &.active {
+      background: white;
+      transform: scale(1.2);
+    }
 
     &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(106, 17, 203, 0.6);
+      transform: scale(1.2);
+      background: rgba(255, 255, 255, 0.5);
     }
+  }
+}
 
-    @media (max-width: 480px) {
-      padding: 10px 20px;
-      font-size: 1rem;
-    }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

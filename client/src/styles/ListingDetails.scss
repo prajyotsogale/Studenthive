@@ -62,14 +62,22 @@
 
   .photos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin: 20px 0;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); // Adjusted for better alignment
+    gap: 20px; // Increased gap for better spacing
+    margin: 30px 0;
 
     img {
       width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      height: 250px; // Increased height for better proportions
+      object-fit: cover; // Ensures images are cropped proportionally
+      border-radius: 10px; // Slightly larger border radius for a modern look
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Enhanced shadow for a professional look
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05); // Slight zoom effect on hover
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); // Enhanced shadow on hover
+      }
     }
   }
 
@@ -83,18 +91,19 @@
     display: flex;
     gap: 20px;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 
     img {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       object-fit: cover;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     p {
       margin: 0;
-      font-size: 16px;
+      font-size: 18px;
       color: #555;
     }
   }
@@ -146,12 +155,12 @@
       margin: 30px 0;
       background: #fff;
       padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px; // Slightly larger border radius for a modern look
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Enhanced shadow for a professional look
 
       h2 {
         margin-bottom: 15px;
-        font-size: 20px;
+        font-size: 22px; // Slightly larger font size for better readability
         font-weight: bold;
         color: #333;
       }
@@ -164,8 +173,8 @@
         color: #fff;
         font-weight: bold;
         border: none;
-        border-radius: 4px;
-        padding: 10px 20px;
+        border-radius: 6px; // Slightly larger border radius for buttons
+        padding: 12px 20px; // Adjusted padding for better proportions
         cursor: pointer;
         transition: background-color 0.3s ease;
 
